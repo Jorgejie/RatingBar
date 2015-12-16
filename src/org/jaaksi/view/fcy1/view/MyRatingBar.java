@@ -65,6 +65,19 @@ public class MyRatingBar extends LinearLayout {
         return 0;
     }
 
+    /**
+     * @param count
+     */
+    public void setRating(int count) {
+        for (int i = 0; i < list.size(); i++) {
+            if (i < count) {
+                list.get(i).setChecked(true);
+            } else {
+                list.get(i).setChecked(false);
+            }
+        }
+    }
+
     private void initView() {
 //        removeAllViews();
 //        list = new ArrayList<CheckBox>()
