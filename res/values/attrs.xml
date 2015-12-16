@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BubbleImageView">
+        <attr name="bubble_arrowTop" format="dimension|reference" />
+        <attr name="bubble_arrowWidth" format="dimension|reference" />
+        <attr name="bubble_arrowHeight" format="dimension|reference" />
+        <attr name="bubble_arrowOffset" format="dimension|reference" />
+        <attr name="bubble_angle" format="dimension|reference" />
+        <attr name="bubble_arrowLocation" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+
+    <!-- 顶部Tab -->
+    <declare-styleable name="HouseSegment">
+        <attr name="cornerRadius" format="dimension|reference" />
+        <attr name="colors" format="color|reference" />
+        <attr name="unPressText" format="color|reference" />
+        <attr name="pressText" format="color|reference" />
+        <attr name="canvasColor" format="color|reference" />
+        <attr name="texts" format="string|reference" />
+        <attr name="android:textSize" />
+        <attr name="direction" format="enum">
+            <enum name="horizon" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="gaps" format="dimension|reference" />
+        <attr name="horizonGap" format="dimension|reference" />
+        <attr name="verticalGap" format="dimension|reference" />
+    </declare-styleable>
+
+    <!-- Defines the custom XML attributes supported for a HorizontalListView -->
+    <declare-styleable name="HorizontalListView">
+        <attr name="dividerWidth" format="dimension" />
+        <attr name="android:divider" />
+        <attr name="android:requiresFadingEdge" />
+        <attr name="android:fadingEdgeLength" />
+    </declare-styleable>
+    <declare-styleable name="MyScrollPageView">
+        <attr name="indicator_gravity" format="enum">
+            <enum name="Center_Bottom" value="0" />
+            <enum name="Center" value="1" />
+            <enum name="Center_Top" value="2" />
+            <enum name="Right_Bottom" value="3" />
+            <enum name="Right_Top" value="4" />
+            <enum name="Left_Bottom" value="5" />
+            <enum name="Left_Top" value="6" />
+        </attr>
+        <attr name="isauto_scroll" format="boolean" />
+        <attr name="isInfinite" format="boolean" />
+        <attr name="scroll_interval" format="integer" />
+        <attr name="indicator_visibility" format="enum">
+            <enum name="Gone" value="0" />
+            <enum name="Visible" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!-- two tab select view -->
+    <declare-styleable name="TwoTabSelView">
+        <attr name="leftTabText" format="string|reference" />
+        <attr name="rightTabText" format="string|reference" />
+        <attr name="selBgDrawable" format="reference" />
+        <attr name="selTextColor" format="color|reference" />
+        <attr name="unSelTextColor" format="color|reference" />
+        <attr name="defSelTab">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

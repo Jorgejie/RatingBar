@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyRatingBar">
+        <!-- 星星个数-->
+        <attr name="num" format="integer" />
+        <!-- 间距  -->
+        <attr name="space" format="dimension" />
+        <!-- 系统的Layout_width与height-->
+        <attr name="rating_width" format="enum|dimension">
+            <enum name="wrap_content" value="-1" />
+        </attr>
+        <attr name="rating_height" format="enum|dimension">
+            <enum name="wrap_content" value="-1" />
+        </attr>
+        <!-- 系统的button或者background属性-->
+        <attr name="rating_background" format="reference" />
+    </declare-styleable>
+
+    <!-- MyGridLayout -->
+    <declare-styleable name="MyGridLayout">
+        <attr name="numColumns" format="integer" />
+        <attr name="itemMargin" format="integer" />
+    </declare-styleable>
+</resources>

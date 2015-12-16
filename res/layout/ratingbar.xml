@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rating_bar="http://schemas.android.com/apk/res/org.jaaksi.view.fcy1"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <org.jaaksi.view.fcy1.view.MyRatingBar
+        android:id="@+id/rating_var"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        rating_bar:rating_width="20dp"
+        rating_bar:rating_height="20dp"
+        rating_bar:num="5"
+        rating_bar:space="10dp"
+        rating_bar:rating_background="@drawable/bg_ratingbar"
+        />
+
+    <!--
+        考虑问题：
+        1.星星背景selector
+        2.星星个数
+        3.行条大小及间距
+        4.每个都可以点击
+        5.提供设置及获取当前选中的个数
+    -->
+    <LinearLayout
+        android:id="@+id/rating_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <!--
+            使用button的效果与使用background的效果不同，
+            即使都是wrap_content,建议使用background可以和UI效果完全相同
+            -->
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/bg_ratingbar"
+            android:checked="true"
+            android:background="@null"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ratingbar"
+            android:checked="true"
+            android:button="@color/transparent"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@drawable/bg_ratingbar"
+            />
+    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="getRating"
+        android:onClick="getRating"
+        />
+</LinearLayout>
