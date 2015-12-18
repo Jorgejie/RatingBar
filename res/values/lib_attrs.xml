@@ -6,11 +6,11 @@
         <!-- 间距  -->
         <attr name="space" format="dimension" />
         <!-- 系统的Layout_width与height-->
-        <attr name="rating_width" format="enum|dimension">
-            <enum name="wrap_content" value="-1" />
+        <attr name="rating_width" format="dimension">
+            <enum name="wrap_content" value="-2" />
         </attr>
-        <attr name="rating_height" format="enum|dimension">
-            <enum name="wrap_content" value="-1" />
+        <attr name="rating_height" format="dimension">
+            <enum name="wrap_content" value="-2" />
         </attr>
         <!-- 系统的button或者background属性-->
         <attr name="rating_background" format="reference" />

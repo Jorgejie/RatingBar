@@ -15,7 +15,7 @@
         android:id="@+id/rating_var"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        rating_bar:rating_width="20dp"
+        rating_bar:rating_width="wrap_content"
         rating_bar:rating_height="20dp"
         rating_bar:num="5"
         rating_bar:space="10dp"
