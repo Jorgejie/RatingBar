@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:rating_bar="http://schemas.android.com/apk/res/org.jaaksi.view.fcy1"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
     <RatingBar
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
     <org.jaaksi.view.fcy1.view.MyRatingBar
         android:id="@+id/rating_var"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        rating_bar:rating_width="wrap_content"
-        rating_bar:rating_height="20dp"
         rating_bar:num="5"
-        rating_bar:space="10dp"
         rating_bar:rating_background="@drawable/bg_ratingbar"
-        />
+        rating_bar:rating_height="wrap_content"
+        rating_bar:rating_width="wrap_content"
+        rating_bar:space="30dp" />
 
     <!--
         考虑问题：
@@ -34,8 +31,12 @@
         android:id="@+id/rating_bar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wrap_content" />
 
         <!--
             使用button的效果与使用background的效果不同，
@@ -44,30 +45,81 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/bg_ratingbar"
-            android:checked="true"
             android:background="@null"
-            />
+            android:button="@drawable/bg_ratingbar"
+            android:checked="true" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star_checked" />
+
+        <!-- 为什么高度wrap_content显示效果确实不对的-->
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ratingbar"
-            android:checked="true"
             android:button="@color/transparent"
-            />
+            android:checked="true"
+            android:scaleX="0.5"
+            android:scaleY="0.5" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@null"
             android:background="@drawable/bg_ratingbar"
-            />
+            android:button="@null"
+            android:checked="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star_checked" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30dp" />
+
+        <!--
+            使用button的效果与使用background的效果不同，
+            button，绘制是按照图片的大小绘制的，跟layout_width、layout_height无关，
+            而且更改大小时，将不能居中（水平方向）
+            使用 background属性时，width是对的，但是高度却是不对的，
+            默认会有一个类似padding, 无法去除，如果想用wrap_content，就用button属性（图片高度wrap，控件高度还是不对的）
+            如果想设置固定高度，用background, 可以根据图片大小设置固定高度
+            -->
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#f00"
+            android:button="@drawable/bg_ratingbar"
+            android:checked="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ratingbar"
+            android:button="@color/transparent"
+            android:checked="true" />
+
+        <CheckBox
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_ratingbar"
+            android:button="@null"
+            android:checked="true" />
+    </LinearLayout>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="getRating"
         android:onClick="getRating"
-        />
+        android:text="getRating" />
 </LinearLayout>

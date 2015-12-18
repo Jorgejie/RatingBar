@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import org.jaaksi.view.fcy1.view.DensityUtil;
 import org.jaaksi.view.fcy1.view.MyRatingBar;
 
 public class MyActivity extends Activity {
@@ -21,6 +22,9 @@ public class MyActivity extends Activity {
         setContentView(R.layout.ratingbar);
 
         ratingBar = (MyRatingBar) findViewById(R.id.rating_var);
+
+        int i = DensityUtil.dip2px(this, 50);
+        Log.i("fcy","----------------- i="+i);
     }
 
     public void getRating(View view) {
