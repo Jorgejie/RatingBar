@@ -2,6 +2,7 @@ package org.jaaksi.view.fcy1.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,11 +101,13 @@ public class MyRatingBar extends LinearLayout {
             }
 //            checkBox.setButtonDrawable(null); // 这么设置是无效的
 
-            checkBox.setButtonDrawable(resId);
+            if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+                checkBox.setButtonDrawable(resId);
+            } else {
+                checkBox.setBackgroundResource(resId);
+                checkBox.setButtonDrawable(new ColorDrawable());
+            }
 
-            // ============== background =================
-//            checkBox.setBackgroundResource(resId);
-//            checkBox.setButtonDrawable(new ColorDrawable());
             addView(checkBox, params);
 
         }
