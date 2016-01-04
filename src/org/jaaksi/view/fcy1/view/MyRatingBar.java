@@ -24,6 +24,15 @@ public class MyRatingBar extends LinearLayout {
     int height = 10;
     int resId;
 
+    /**
+     * 是否允许点击改变星星状态
+     */
+    private boolean isClickEnable = true;
+
+    public void setClickEnable(boolean isClickEnable) {
+        this.isClickEnable = isClickEnable;
+    }
+
     private List<CheckBox> list = new ArrayList<>();
 
     public MyRatingBar(Context context) {
@@ -87,12 +96,14 @@ public class MyRatingBar extends LinearLayout {
     }
 
     private void initView() {
-//        removeAllViews();
+        removeAllViews();
 //        list = new ArrayList<CheckBox>()
         for (int i = 0; i < num; i++) {
             CheckBox checkBox = new CheckBox(getContext());
             list.add(checkBox);
-            checkBox.setOnClickListener(new MyClickListener(i));
+            if (isClickEnable) {
+                checkBox.setOnClickListener(new MyClickListener(i));
+            }
             LayoutParams params = new LayoutParams(width, height);
             if (i == 0) {
                 params.leftMargin = 0;
