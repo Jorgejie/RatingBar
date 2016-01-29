@@ -23,8 +23,6 @@ public class MyActivity extends Activity {
 
         ratingBar = (MyRatingBar) findViewById(R.id.rating_var);
 
-        int i = DensityUtil.dip2px(this, 50);
-        Log.i("fcy","----------------- i="+i);
     }
 
     public void getRating(View view) {
