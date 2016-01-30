@@ -14,6 +14,8 @@
         </attr>
         <!-- 系统的button或者background属性-->
         <attr name="rating_background" format="reference" />
+        <!-- 是否点击改变星条个数 -->
+        <attr name="click_enable" format="boolean"/>
     </declare-styleable>
 
     <!-- MyGridLayout -->
