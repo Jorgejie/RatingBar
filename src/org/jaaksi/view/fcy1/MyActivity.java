@@ -21,9 +21,9 @@ public class MyActivity extends Activity
 		setContentView(R.layout.ratingbar);
 
 		ratingBar = (MyRatingBar) findViewById(R.id.rating_var);
+		ratingBar.setRatings(2.5f);
+		ratingBar.setRating(4);
 		ratingBar.setRatings(3.5f);
-		ratingBar.setRating(2);
-		ratingBar.setRatings(4.5f);
 	}
 
 	public void getRating(View view)

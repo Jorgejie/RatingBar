@@ -51,8 +51,7 @@ public class MyRatingBar extends LinearLayout
 			spacing = typedArray
 			        .getDimensionPixelSize(R.styleable.MyRatingBar_space, 1);
 			resId = typedArray.getResourceId(
-			        R.styleable.MyRatingBar_rating_background,
-			        R.drawable.bg_ratingbar);
+			        R.styleable.MyRatingBar_rating_background, -2);
 			try
 			{
 				width = typedArray.getDimensionPixelSize(
@@ -160,14 +159,17 @@ public class MyRatingBar extends LinearLayout
 			}
 			// checkBox.setButtonDrawable(null); // 这么设置是无效的
 
-			if (height == ViewGroup.LayoutParams.WRAP_CONTENT)
+			if (resId != -2)
 			{
-				checkBox.setButtonDrawable(resId);
-			}
-			else
-			{
-				checkBox.setBackgroundResource(resId);
-				checkBox.setButtonDrawable(new ColorDrawable());
+				if (height == ViewGroup.LayoutParams.WRAP_CONTENT)
+				{
+					checkBox.setButtonDrawable(resId);
+				}
+				else
+				{
+					checkBox.setBackgroundResource(resId);
+					checkBox.setButtonDrawable(new ColorDrawable());
+				}
 			}
 
 			addView(checkBox, params);
@@ -187,7 +189,6 @@ public class MyRatingBar extends LinearLayout
 		@Override
 		public void onClick(View v)
 		{
-			Toast.makeText(getContext(), "aa", Toast.LENGTH_SHORT).show();
 			CheckBox checkBox = (CheckBox) v;
 			checkBox.setChecked(true);
 			for (int i = 0; i < list.size(); i++)
