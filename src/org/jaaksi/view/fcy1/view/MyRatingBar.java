@@ -96,6 +96,25 @@ public class MyRatingBar extends LinearLayout
 	}
 
 	/**
+	 * @return
+	 */
+	public float getRatings()
+	{
+		for (int i = list.size(); i > 0; i--)
+		{
+			if (list.get(i - 1).isChecked())
+			{
+				if (i < num && !isClickEnable && !list.get(i).isEnabled())
+				{
+					return i + 0.5f;
+				}
+				return i;
+			}
+		}
+		return 0;
+	}
+
+	/**
 	 * 设置半颗星，必须不可点击时才有效
 	 * 
 	 * @param count

@@ -28,7 +28,7 @@ public class MyActivity extends Activity
 
 	public void getRating(View view)
 	{
-		int rating = ratingBar.getRating();
+		float rating = ratingBar.getRatings();
 		Toast.makeText(this, "rating=" + rating, Toast.LENGTH_SHORT).show();
 	}
 }
