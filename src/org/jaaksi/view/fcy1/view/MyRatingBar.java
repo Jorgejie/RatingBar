@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import org.jaaksi.view.fcy1.R;
 
 import java.util.ArrayList;
@@ -95,6 +94,16 @@ public class MyRatingBar extends LinearLayout
 		return 0;
 	}
 
+	private float ratings = 0;
+
+	/**
+	 * 如果有半颗星，获取星星个数必须调用了setRatings设置星星
+	 * @return
+	 */
+	public float getRatings() {
+		return ratings;
+	}
+
 	/**
 	 * 设置半颗星，必须不可点击时才有效
 	 * 
@@ -104,8 +113,10 @@ public class MyRatingBar extends LinearLayout
 	{
 		int a = (int) count;
 		setRating(a);
-		if (a != count && a < num && !isClickEnable)
+		int round = Math.round(count);
+		if (!isClickEnable && round != count && round <= num)
 		{
+			this.ratings = count;
 			list.get(a).setEnabled(false);
 		}
 	}
