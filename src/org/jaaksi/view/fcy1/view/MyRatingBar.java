@@ -111,12 +111,12 @@ public class MyRatingBar extends LinearLayout
 	 */
 	public void setRatings(float count)
 	{
+		this.ratings = count;
 		int a = (int) count;
 		setRating(a);
 		int round = Math.round(count);
-		if (!isClickEnable && round != count && round <= num)
+		if (!isClickEnable && round != a && round <= num)
 		{
-			this.ratings = count;
 			list.get(a).setEnabled(false);
 		}
 	}
@@ -126,6 +126,7 @@ public class MyRatingBar extends LinearLayout
 	 */
 	public void setRating(int count)
 	{
+		this.ratings = count;
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (i < count)
