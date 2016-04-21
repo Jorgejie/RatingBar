@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rating_array">
+        <item>不关注</item>
+        <item>不感兴趣</item>
+        <item>一般</item>
+        <item>感兴趣</item>
+        <item>喜欢</item>
+    </string-array>
+</resources>

@@ -3,6 +3,7 @@ package org.jaaksi.view.fcy1;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.jaaksi.view.fcy1.view.MyRatingBar;
 
@@ -20,10 +21,10 @@ public class MyActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ratingbar);
 
+		TextView rating_desc = (TextView) findViewById(R.id.rating_desc);
 		ratingBar = (MyRatingBar) findViewById(R.id.rating_var);
-		ratingBar.setRatings(2.5f);
-		ratingBar.setRating(4);
-		ratingBar.setRatings(3.5f);
+		ratingBar.setRating(0);
+		ratingBar.bindDescView(rating_desc, getResources().getStringArray(R.array.rating_array));
 	}
 
 	public void getRating(View view)

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 import org.jaaksi.view.fcy1.R;
 
 import java.util.ArrayList;
@@ -16,7 +16,8 @@ import java.util.List;
 
 /**
  * Created by Fcy on 2015/12/17.<br/>
- * 利用CheckBox实现的自定义 RatingBar
+ * 利用CheckBox实现的自定义 RatingBar 支持显示半颗星（仅不可点击时）
+ * 半颗星与整个星不同时支持，不要同时使用setRating()和setRatings()
  */
 public class MyRatingBar extends LinearLayout
 {
@@ -95,23 +96,16 @@ public class MyRatingBar extends LinearLayout
 		return 0;
 	}
 
+	private float ratings = 0;
+
 	/**
+	 * 必须调用setRatings
+	 * 
 	 * @return
 	 */
 	public float getRatings()
 	{
-		for (int i = list.size(); i > 0; i--)
-		{
-			if (list.get(i - 1).isChecked())
-			{
-				if (i < num && !isClickEnable && !list.get(i).isEnabled())
-				{
-					return i + 0.5f;
-				}
-				return i;
-			}
-		}
-		return 0;
+		return ratings;
 	}
 
 	/**
@@ -121,9 +115,11 @@ public class MyRatingBar extends LinearLayout
 	 */
 	public void setRatings(float count)
 	{
+		this.ratings = count;
 		int a = (int) count;
 		setRating(a);
-		if (a != count && a < num && !isClickEnable)
+		int round = Math.round(count);
+		if (!isClickEnable && round != a && round <= num)
 		{
 			list.get(a).setEnabled(false);
 		}
@@ -134,6 +130,7 @@ public class MyRatingBar extends LinearLayout
 	 */
 	public void setRating(int count)
 	{
+		// ratings = count;
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (i < count)
@@ -164,6 +161,7 @@ public class MyRatingBar extends LinearLayout
 			else
 			{
 				checkBox.setClickable(false);
+				// 如果列表item需要相应点击事件，可在item根布局添加android:descendantFocusability="blocksDescendants"
 				// checkBox.setFocusableInTouchMode(false);
 				// checkBox.setFocusable(false);
 			}
@@ -189,11 +187,44 @@ public class MyRatingBar extends LinearLayout
 					checkBox.setBackgroundResource(resId);
 					checkBox.setButtonDrawable(new ColorDrawable());
 				}
+
 			}
 
 			addView(checkBox, params);
 
 		}
+	}
+
+	private TextView descView;
+	private String[] descArray;
+
+	/**
+	 * 绑定一个TextView和数组
+	 * 
+	 * @param textView
+	 * @param descArray
+	 *            描述数组 size应该与星条个数一致，本地数据可以在arrays.xml中配置
+	 */
+	public void bindDescView(TextView textView, String[] descArray)
+	{
+		this.descView = textView;
+		this.descArray = descArray;
+		initDescContent(getRating());
+	}
+
+	/**
+	 *
+	 * @param count
+	 *            选中的星星个数
+	 */
+	private void initDescContent(int count)
+	{
+		if (descView != null && descArray != null
+		        && descArray.length >= num + 1)
+		{ // 有0个也需要设置文案的需要
+			descView.setText(descArray[count]);
+		}
+
 	}
 
 	class MyClickListener implements OnClickListener
@@ -221,6 +252,8 @@ public class MyRatingBar extends LinearLayout
 					list.get(i).setChecked(false);
 				}
 			}
+			initDescContent(position + 1);
+
 		}
 	}
 
