@@ -205,11 +205,27 @@ public class MyRatingBar extends LinearLayout
 	 * @param descArray
 	 *            描述数组 size应该与星条个数一致，本地数据可以在arrays.xml中配置
 	 */
-	public void bindDescView(TextView textView, String[] descArray)
+	public void bindDescView(TextView textView, String[] descArray,
+	        boolean isInit)
 	{
 		this.descView = textView;
 		this.descArray = descArray;
-		initDescContent(getRating());
+		if (isInit)
+		{
+			initDescContent(getRating());
+		}
+	}
+
+	/**
+	 * 绑定一个TextView和数组并根据星星个数初始化
+	 *
+	 * @param textView
+	 * @param descArray
+	 *            描述数组 size应该与星条个数一致，本地数据可以在arrays.xml中配置
+	 */
+	public void bindDescView(TextView textView, String[] descArray)
+	{
+		bindDescView(textView, descArray, true);
 	}
 
 	/**
