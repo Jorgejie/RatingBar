@@ -2,11 +2,10 @@ package org.jaaksi.view.fcy1.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.jaaksi.view.fcy1.R;
@@ -20,22 +19,23 @@ import java.util.List;
  * 半颗星与整个星不同时支持，不要同时使用setRating()和setRatings()
  */
 public class MyRatingBar extends LinearLayout {
-    private int num = 1;
-    private int spacing = 0;
-    private int width = 10;
-    private int height = 10;
-    private int resId;
+    private int mCount = 1;
+    private int mSpacing = 0;
+    private int mWidth = 10;
+    private int mHeight = 10;
+    private int mResId;
 
     /**
      * 是否允许点击改变星星状态
      */
-    private boolean isClickEnable = true;
+    private boolean mClickEnable = true;
+    private float mRatings = 0;
 
-    private TextView descView;
-    private String[] descArray;
+    private TextView mDescView;
+    private String[] mDescArray;
     private OnSeekChangedListener mOnSeekChangedListener;
 
-    private final List<CheckBox> list = new ArrayList<>();
+    private final List<ImageView> mList = new ArrayList<>();
 
     public MyRatingBar(Context context) {
         super(context);
@@ -46,25 +46,25 @@ public class MyRatingBar extends LinearLayout {
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs,
                 R.styleable.MyRatingBar);
-            isClickEnable = typedArray
+            mClickEnable = typedArray
                 .getBoolean(R.styleable.MyRatingBar_click_enable, true);
-            num = typedArray.getInteger(R.styleable.MyRatingBar_num, 1);
-            spacing = typedArray
+            mCount = typedArray.getInteger(R.styleable.MyRatingBar_num, 1);
+            mSpacing = typedArray
                 .getDimensionPixelSize(R.styleable.MyRatingBar_space, 1);
-            resId = typedArray.getResourceId(
+            mResId = typedArray.getResourceId(
                 R.styleable.MyRatingBar_rating_background, -2);
             try {
-                width = typedArray.getDimensionPixelSize(
+                mWidth = typedArray.getDimensionPixelSize(
                     R.styleable.MyRatingBar_rating_width, 0);
             } catch (Exception ex) {
-                width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                mWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
             }
 
             try {
-                height = typedArray.getDimensionPixelSize(
+                mHeight = typedArray.getDimensionPixelSize(
                     R.styleable.MyRatingBar_rating_height, 0);
             } catch (Exception ex) {
-                height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
             }
 
             typedArray.recycle();
@@ -72,35 +72,41 @@ public class MyRatingBar extends LinearLayout {
         initView();
     }
 
+    private void initView() {
+//        removeAllViews();
+//        mList.clear();
+        for (int i = 0; i < mCount; i++) {
+            ImageView imageView = new ImageView(getContext());
+            mList.add(imageView);
+
+            if (mClickEnable) {
+                imageView.setOnClickListener(new MyClickListener(i));
+            } else {
+//                imageView.setClickable(false);
+            }
+            LayoutParams params = new LayoutParams(mWidth, mHeight);
+            if (i == 0) {
+                params.leftMargin = 0;
+            } else {
+                params.leftMargin = mSpacing;
+            }
+            imageView.setImageResource(mResId);
+
+            addView(imageView, params);
+
+        }
+    }
+
     public void setOnSeekChangedListener(OnSeekChangedListener onSeekChangedListener) {
         mOnSeekChangedListener = onSeekChangedListener;
     }
 
     public int getMax() {
-        return num;
+        return mCount;
     }
 
-    /**
-     * @return 选中的星星个数
-     */
-    public int getRating() {
-        for (int i = list.size(); i > 0; i--) {
-            if (list.get(i - 1).isChecked()) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    private float ratings = 0;
-
-    /**
-     * 必须调用setRatings
-     *
-     * @return
-     */
     public float getRatings() {
-        return ratings;
+        return mRatings;
     }
 
     /**
@@ -109,12 +115,12 @@ public class MyRatingBar extends LinearLayout {
      * @param count
      */
     public void setRatings(float count) {
-        this.ratings = count;
+        this.mRatings = count;
         int a = (int) count;
         setRating(a);
         int round = Math.round(count);
-        if (!isClickEnable && round != a && round <= num) {
-            list.get(a).setEnabled(false);
+        if (!mClickEnable && round != a && round <= mCount) {
+            mList.get(a).setEnabled(false);
         }
     }
 
@@ -122,52 +128,10 @@ public class MyRatingBar extends LinearLayout {
      * @param count
      */
     public void setRating(int count) {
-        // ratings = count;
-        for (int i = 0; i < list.size(); i++) {
-            if (i < count) {
-                list.get(i).setChecked(true);
-            } else {
-                list.get(i).setChecked(false);
-            }
-            list.get(i).setEnabled(true);
-        }
-    }
-
-    private void initView() {
-        removeAllViews();
-        // list = new ArrayList<CheckBox>()
-        for (int i = 0; i < num; i++) {
-            CheckBox checkBox = new CheckBox(getContext());
-            list.add(checkBox);
-
-            if (isClickEnable) { // checkbox的clickable=false时，如果不设置 点击事件，将不能被点击
-                checkBox.setOnClickListener(new MyClickListener(i));
-            } else {
-                checkBox.setClickable(false);
-                // 如果列表item需要相应点击事件，可在item根布局添加android:descendantFocusability="blocksDescendants"
-                // checkBox.setFocusableInTouchMode(false);
-                // checkBox.setFocusable(false);
-            }
-            LayoutParams params = new LayoutParams(width, height);
-            if (i == 0) {
-                params.leftMargin = 0;
-            } else {
-                params.leftMargin = spacing;
-            }
-            // checkBox.setButtonDrawable(null); // 这么设置是无效的
-
-            if (resId != -2) {
-                if (height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-                    checkBox.setButtonDrawable(resId);
-                } else {
-                    checkBox.setBackgroundResource(resId);
-                    checkBox.setButtonDrawable(new ColorDrawable());
-                }
-
-            }
-
-            addView(checkBox, params);
-
+        mRatings = count;
+        for (int i = 0; i < mList.size(); i++) {
+            mList.get(i).setSelected(i < count);
+            mList.get(i).setEnabled(true);
         }
     }
 
@@ -179,10 +143,10 @@ public class MyRatingBar extends LinearLayout {
      */
     public void bindDescView(TextView textView, String[] descArray,
                              boolean isInit) {
-        this.descView = textView;
-        this.descArray = descArray;
+        this.mDescView = textView;
+        this.mDescArray = descArray;
         if (isInit) {
-            initDescContent(getRating());
+            initDescContent((int) getRatings());
         }
     }
 
@@ -200,14 +164,14 @@ public class MyRatingBar extends LinearLayout {
      * @param count 选中的星星个数
      */
     private void initDescContent(int count) {
-        if (descView != null && descArray != null
-            && descArray.length >= num + 1) { // 有0个也需要设置文案的需要
-            descView.setText(descArray[count]);
+        if (mDescView != null && mDescArray != null
+            && mDescArray.length >= mCount + 1) { // 有0个也需要设置文案的需要
+            mDescView.setText(mDescArray[count]);
         }
 
     }
 
-    class MyClickListener implements OnClickListener {
+    private class MyClickListener implements OnClickListener {
         private int position;
 
         public MyClickListener(int position) {
@@ -216,30 +180,28 @@ public class MyRatingBar extends LinearLayout {
 
         @Override
         public void onClick(View v) {
-            if (mOnSeekChangedListener != null) {
-                mOnSeekChangedListener.onSeekChanged(position, position + 1);
-            }
-
-            CheckBox checkBox = (CheckBox) v;
-            checkBox.setChecked(true);
-            for (int i = 0; i < list.size(); i++) {
-                if (i <= position) {
-                    list.get(i).setChecked(true);
-                } else {
-                    list.get(i).setChecked(false);
+            int curr = position + 1;
+            if (mRatings != curr) {
+                if (mOnSeekChangedListener != null) {
+                    mOnSeekChangedListener.onSeekChanged((int) mRatings, curr);
                 }
+                ImageView imageView = (ImageView) v;
+                imageView.setSelected(true);
+                for (int i = 0; i < mList.size(); i++) {
+                    mList.get(i).setSelected(i <= position);
+                }
+                initDescContent(curr);
+                mRatings = curr;
             }
-            initDescContent(position + 1);
-
         }
     }
 
     public interface OnSeekChangedListener {
         /**
-         * @param position 当前点击的position
-         * @param count    评分个数
+         * @param lastCount 上次rating count
+         * @param count     rating count
          */
-        void onSeekChanged(int position, int count);
+        void onSeekChanged(int lastCount, int count);
     }
 
 }

@@ -18,7 +18,7 @@
             android:id="@+id/rating_var"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            rating_bar:click_enable="false"
+            rating_bar:click_enable="true"
             rating_bar:num="4"
             rating_bar:rating_background="@drawable/bg_ratingbar"
             rating_bar:rating_height="wrap_content"
