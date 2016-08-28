@@ -3,8 +3,8 @@
     xmlns:rating_bar="http://schemas.android.com/apk/res/org.jaaksi.view.fcy1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -12,7 +12,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
 
         <org.jaaksi.view.fcy1.view.MyRatingBar
             android:id="@+id/rating_var"
@@ -29,21 +30,28 @@
             android:id="@+id/rating_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:textColor="#fff" />
     </LinearLayout>
 
-
-    <!--
-        使用button的效果与使用background的效果不同，
-        button，绘制是按照图片的大小绘制的，跟layout_width、layout_height无关，
-        而且更改大小时，将不能居中（水平方向）
-        使用 background属性时，width是对的，但是高度却是不对的，
-        默认会有一个类似padding, 无法去除，如果想用wrap_content，就用button属性（图片高度wrap，控件高度还是不对的）
-        如果想设置固定高度，用background, 可以根据图片大小设置固定高度
-        -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:onClick="getRating"
         android:text="getRating" />
+
+    <org.jaaksi.view.fcy1.view.MyRatingBar
+        android:id="@+id/rating_half"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        rating_bar:click_enable="false"
+        rating_bar:num="5"
+        rating_bar:rating_background="@drawable/bg_ratingbar"
+        rating_bar:rating_height="27dp"
+        rating_bar:rating_width="30dp"
+        rating_bar:space="20dp" />
+
+
 </LinearLayout>

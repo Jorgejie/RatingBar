@@ -21,9 +21,12 @@ public class MyActivity extends Activity implements MyRatingBar.OnSeekChangedLis
 
         TextView rating_desc = (TextView) findViewById(R.id.rating_desc);
         ratingBar = (MyRatingBar) findViewById(R.id.rating_var);
-        ratingBar.setRating(0);
+        ratingBar.setRating(3);
         ratingBar.bindDescView(rating_desc, getResources().getStringArray(R.array.rating_array));
         ratingBar.setOnSeekChangedListener(this);
+
+        MyRatingBar ratingHalf = (MyRatingBar) findViewById(R.id.rating_half);
+        ratingHalf.setRatings(3.6f);
     }
 
     public void getRating(View view) {
